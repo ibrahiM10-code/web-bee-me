@@ -76,11 +76,13 @@ const HiveManagementScreen = () => {
 
   // Lógica de carga inicial de colmenas
   useEffect(() => {
+    if (!config || !userId) return;
     fetchHives();
   }, [config]);
 
   // Efecto para limpiar la URL blob:
   useEffect(() => {
+    if (!config || !userId) return;
     return () => {
       if (hiveImagePreview && hiveImagePreview.startsWith("blob:")) {
         URL.revokeObjectURL(hiveImagePreview);

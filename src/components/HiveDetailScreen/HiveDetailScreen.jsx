@@ -167,6 +167,7 @@ const HiveDetailScreen = () => {
 
   useEffect(() => {
     const loadInitialData = async () => {
+      if (!config || !userId) return;
       await fetchUmbrales();
       await fetchCurrentMetrics();
       await fetchAlerts();

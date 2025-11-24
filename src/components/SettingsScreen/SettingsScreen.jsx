@@ -72,6 +72,8 @@ const SettingsScreen = () => {
   useEffect(() => {
     if (userId && config) {
       fetchUmbrales();
+    } else {
+      return;
     }
   }, [userId, config]);
 
