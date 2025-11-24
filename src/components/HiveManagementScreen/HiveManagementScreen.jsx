@@ -76,7 +76,9 @@ const HiveManagementScreen = () => {
 
   // Lógica de carga inicial de colmenas
   useEffect(() => {
-    if (!config || !userId) return;
+    if (!config || !userId) {
+      navigate("/login");
+    }
     fetchHives();
   }, [config]);
 

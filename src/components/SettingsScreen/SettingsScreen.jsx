@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
 import AuthContext from "../../context/AuthProvider";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import {
   FaCog,
   FaBell,
@@ -35,7 +35,8 @@ const SettingsScreen = () => {
   const [message, setMessage] = useState("");
   const { config, userId } = useContext(AuthContext);
   const [umbrales, setUmbrales] = useState(null);
-
+  const nav = useNavigate()
+  
   const fetchUmbrales = async () => {
     try {
       const response = await axios.get(
@@ -70,10 +71,10 @@ const SettingsScreen = () => {
 
   // call fetchUmbrales when provider config or userId changes
   useEffect(() => {
-    if (userId && config) {
-      fetchUmbrales();
+    if (!userId || !config) {
+      nav("/login")
     } else {
-      return;
+      fetchUmbrales();
     }
   }, [userId, config]);
 

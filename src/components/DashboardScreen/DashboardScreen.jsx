@@ -16,7 +16,7 @@ import {
   MdOutlineScale,
   MdAnalytics,
 } from "react-icons/md";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import AuthContext from "../../context/AuthProvider";
 import { API_URL } from "../../helpers/apiURL";
@@ -449,15 +449,16 @@ const DashboardScreen = () => {
   const [lastUpdatedTime, setLastUpdatedTime] = useState("N/A");
   const [isAlertsModalOpen, setIsAlertsModalOpen] = useState(false);
   const [activeAlertsData, setActiveAlertsData] = useState([]);
+  const nav = useNavigate();
 
   const [activeTrend, setActiveTrend] = useState("Global");
 
   // ... (funciones getColmenas sin cambios) ...
   const getColmenas = async (isInitialLoad = false) => {
+
     if (isInitialLoad) {
       setLoading(true);
     }
-
     try {
       const response = await axios.get(
         `${API_URL}/colmenas/obtener-colmenas/${userId}`,
@@ -560,12 +561,14 @@ const DashboardScreen = () => {
   }, [allAlertsData]);
 
   useEffect(() => {
-    if (userId) {
-      getColmenas(true);
-      const intervalId = setInterval(() => {
-        getColmenas(false);
-      }, 3000);
-      return () => clearInterval(intervalId);
+    if (!config || !userId) {
+      nav("/login");
+    } else {
+        getColmenas(true);
+        const intervalId = setInterval(() => {
+          getColmenas(false);
+        }, 3000);
+        return () => clearInterval(intervalId);
     }
   }, [config, userId]);
 
