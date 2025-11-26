@@ -608,7 +608,7 @@ const HiveManagementScreen = () => {
         message={
           hiveToDelete
             ? `Estás a punto de eliminar la colmena "${
-                hives.find((h) => (h._id || h.colmena_id) === hiveToDelete)
+                hives.find((h) => (h.colmena_id || h.colmena_id) === hiveToDelete)
                   ?.nombre_colmena || "..."
               }". Esta acción es irreversible.`
             : "¿Estás seguro de que quieres eliminar este elemento? Esta acción es irreversible."
