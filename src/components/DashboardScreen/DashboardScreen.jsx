@@ -303,33 +303,34 @@ const ColonySummaryCard = ({
     // Peso Ideal: >= 40 kg
 
     // --- UMBRALES CRÍTICOS (FUERA DE LOS RANGOS DE TRABAJO SEGURO) ---
-    const isCriticalTemp = temperature < 30 || temperature > 38;
+    
+    const isCriticalTemp = temperature < 32 || temperature > 36;
     // Humedad crítica: Fuera de [40, 90]
-    const isCriticalHum = humidity < 40 || humidity > 90;
+    const isCriticalHum = humidity < 50 || humidity > 70;
     // Peso crítico: 30kg o menos
-    const isCriticalWeight = weight < 30;
+    const isCriticalWeight = weight < 25;
 
     // 1. CHEQUEO CRÍTICO (Prioridad más alta)
     if (isCriticalTemp || isCriticalHum || isCriticalWeight) {
       return "colony-status-critical";
     }
 
-    // 2. CHEQUEO ALERTA (Prioridad media, si no es crítico)
-    // Temperatura en rangos de advertencia [30, 32) o (36, 38]
-    const isAlertTemp =
-      (temperature >= 30 && temperature < 32) ||
-      (temperature > 36 && temperature <= 38);
+    // // 2. CHEQUEO ALERTA (Prioridad media, si no es crítico)
+    // // Temperatura en rangos de advertencia [30, 32) o (36, 38]
+    // const isAlertTemp =
+    //   (temperature > 36 && temperature < 32) ||
+    //   (temperature > 36 && temperature <= 38);
 
-    // Humedad fuera del rango ideal [50, 75], pero dentro del rango crítico [40, 90]
-    const isAlertHum =
-      (humidity >= 40 && humidity < 50) || (humidity > 75 && humidity <= 90);
+    // // Humedad fuera del rango ideal [50, 75], pero dentro del rango crítico [40, 90]
+    // const isAlertHum =
+    //   (humidity >= 40 && humidity < 50) || (humidity > 75 && humidity <= 90);
 
-    // Peso bajo (< 40 kg), pero no crítico
-    const isLowWeight = weight >= 30 && weight < 40;
+    // // Peso bajo (< 40 kg), pero no crítico
+    // const isLowWeight = weight >= 30 && weight < 40;
 
-    if (isAlertTemp || isAlertHum || isLowWeight) {
-      return "colony-status-alert";
-    }
+    // if (isAlertTemp || isAlertHum || isLowWeight) {
+    //   return "colony-status-alert";
+    // }
 
     // 3. ESTADO PREDETERMINADO (Saludable)
     return "colony-status-ok";
