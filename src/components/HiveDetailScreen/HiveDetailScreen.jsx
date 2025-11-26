@@ -395,13 +395,13 @@ const HiveDetailScreen = () => {
         return { status: "unknown", icon: null, label: "Desconocido" };
 
       case "queenStatus":
-        if (value === "Activa")
-          return { status: "ok", icon: <GiBee />, label: "Activa" };
-        return {
-          status: "alert",
-          icon: <FaExclamationTriangle />,
-          label: "Alerta",
-        };
+        // if (value === "Activa")
+        return { status: "ok", icon: <GiBee />, label: "Presente" };
+        // return {
+        //   status: "alert",
+        //   icon: <FaExclamationTriangle />,
+        //   label: "Alerta",
+        // };
       default:
         return { status: "unknown", icon: null, label: "Desconocido" };
     }
@@ -786,9 +786,9 @@ const HiveDetailScreen = () => {
                       )}
                     </div>
                     <div className="alert-details">
-                      <h3 className="alert-type">{alerta.titulo_alerta}</h3>
+                      <h3 className="alert-type">{alerta.titulo}</h3>
                       <p className="alert-description">
-                        {alerta.descripcion_alerta}
+                        {alerta.descripcion}
                       </p>
                       <span className="alert-timestamp">
                         <FaCalendarAlt />{" "}
@@ -796,7 +796,7 @@ const HiveDetailScreen = () => {
                       </span>
                     </div>
                     {alerta.estado_alerta === "pendiente" && (
-                      <button className="resolve-button">
+                      <button onClick={() => cambiarEstadoAlerta(alerta.estado_alerta, alerta._id)} className="resolve-button">
                         Marcar como Resuelta
                       </button>
                     )}
